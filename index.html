@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Елисей Барсуков — Видеопроизводство</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Unbounded:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #0e0c0a;
+      --bg2:       #141210;
+      --line:      #2a2520;
+      --terra:     #c1440e;
+      --terra-dim: #8a2f09;
+      --gold:      #c9a96e;
+      --text:      #e8e0d5;
+      --muted:     #7a6f65;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 2rem 3rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .logo {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .nav {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav a {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav a:hover { color: var(--terra); }
+
+    .hero-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 3rem;
+      position: relative;
+    }
+
+    .hero-label {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 2rem;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 9vw, 9rem);
+      font-weight: 300;
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      margin-top: 3rem;
+      max-width: 520px;
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .hero-sub strong {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    /* Декоративная вертикальная линия */
+    .deco-line {
+      position: absolute;
+      right: 3rem;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--terra), transparent);
+      opacity: 0.4;
+    }
+
+    .deco-number {
+      position: absolute;
+      right: 3.5rem;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.3em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .hero-contact a {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    .hero-scroll {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ── SECTION ── */
+    section {
+      padding: 6rem 3rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .section-num {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 0.55rem;
+      color: var(--terra);
+      letter-spacing: 0.2em;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      letter-spacing: -0.01em;
+    }
+
+    .section-title em { font-style: italic; color: var(--gold); }
+
+    /* ── CASES ── */
+    .cases {
+      display: grid;
+      gap: 0;
+    }
+
+    .case {
+      display: grid;
+      grid-template-columns: 60px 1fr auto;
+      align-items: start;
+      gap: 2rem;
+      padding: 2.5rem 0;
+      border-top: 1px solid var(--line);
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .case:hover { background: rgba(193,68,14,0.04); }
+
+    .case:hover .case-arrow { opacity: 1; transform: translate(4px, -4px); }
+    .case:hover .case-num { color: var(--terra); }
+
+    .case-num {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 0.55rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      padding-top: 6px;
+      transition: color 0.2s;
+    }
+
+    .case-body { }
+
+    .case-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .case-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tag {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--terra);
+      border: 1px solid var(--terra-dim);
+      padding: 0.2rem 0.6rem;
+      border-radius: 0;
+    }
+
+    .case-desc {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .case-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: flex-end;
+    }
+
+    .case-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      white-space: nowrap;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--line);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .case-link:hover {
+      border-color: var(--terra);
+      color: var(--terra);
+    }
+
+    .case-arrow {
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      font-size: 0.9rem;
+    }
+
+    /* ── STACK ── */
+    .stack-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0;
+      border: 1px solid var(--line);
+    }
+
+    .stack-item {
+      padding: 1.5rem 1.75rem;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .stack-item:nth-child(4n) { border-right: none; }
+
+    .stack-cat {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 0.5rem;
+    }
+
+    .stack-name {
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--text);
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 3rem;
+      padding: 5rem 3rem;
+    }
+
+    .cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      font-weight: 300;
+      line-height: 1.1;
+    }
+
+    .cta-title em { font-style: italic; color: var(--gold); }
+
+    .cta-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: var(--terra);
+      color: #fff;
+      font-family: 'Unbounded', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--terra-dim); }
+
+    .btn-secondary {
+      display: inline-block;
+      padding: 1rem 2rem;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: 'Unbounded', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--gold);
+      color: var(--bg);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2rem 3rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-name {
+      font-family: 'Unbounded', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+    }
+
+    .footer-copy {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-label    { animation: fadeUp 0.8s ease both; }
+    .hero-title    { animation: fadeUp 0.8s ease 0.15s both; }
+    .hero-sub      { animation: fadeUp 0.8s ease 0.3s both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero-top, section, .cta-section, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .nav { display: none; }
+      .case { grid-template-columns: 40px 1fr; }
+      .case-links { display: none; }
+      .cta-section { grid-template-columns: 1fr; }
+      .deco-line, .deco-number { display: none; }
+      .hero-body { padding: 3rem 1.5rem; }
+      .hero-bottom { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HERO ══════════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-top">
+    <div class="logo">Елисей Барсуков</div>
+    <ul class="nav">
+      <li><a href="#cases">Кейсы</a></li>
+      <li><a href="#stack">Стек</a></li>
+      <li><a href="#contact">Контакт</a></li>
+    </ul>
+  </div>
+
+  <div class="hero-body">
+    <div class="hero-label">Full-cycle Production Specialist</div>
+    <h1 class="hero-title">
+      Видео<br />
+      <em>полного</em><br />
+      цикла
+    </h1>
+    <p class="hero-sub">
+      От съёмки до финального рендера — <strong>документальное кино, многокамерные шоу, VFX и AI-постпродакшн.</strong>
+      Каждый проект — решение конкретной бизнес-задачи.
+    </p>
+    <div class="deco-line"></div>
+    <div class="deco-number">Production · 2024</div>
+  </div>
+
+  <div class="hero-bottom">
+    <div class="hero-contact">
+      <a href="https://t.me/barsukowww">Telegram: @barsukowww</a>
+      &nbsp;&nbsp;·&nbsp;&nbsp;
+      <a href="tel:+79094475207">+7 909 447 52 07</a>
+    </div>
+    <div class="hero-scroll">↓ Кейсы</div>
+  </div>
+</div>
+
+<!-- ══ CASES ══════════════════════════════════════════════════════ -->
+<section id="cases">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Ключевые <em>кейсы</em></h2>
+  </div>
+
+  <div class="cases">
+
+    <!-- 1 -->
+    <div class="case">
+      <div class="case-num">01</div>
+      <div class="case-body">
+        <div class="case-title">Документальный фильм «Узбекистан»</div>
+        <div class="case-tags">
+          <span class="tag">2 часа</span>
+          <span class="tag">Постпродакшн под ключ</span>
+          <span class="tag">Цветокоррекция</span>
+          <span class="tag">Инфографика</span>
+        </div>
+        <p class="case-desc">
+          Полный постпродакшн из исходников заказчика. Музыка, цветокоррекция, сложные переходы, авторская инфографика и работа с многочасовым нарративом.
+        </p>
+      </div>
+      <div class="case-links">
+        <a class="case-link" href="https://www.youtube.com/watch?v=AAkEuSFkVHs&t=6986s" target="_blank" rel="noopener">▶ Часть 1</a>
+        <a class="case-link" href="https://www.youtube.com/watch?v=extX9KvwwyE&t=3056s" target="_blank" rel="noopener">▶ Часть 2</a>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="case">
+      <div class="case-num">02</div>
+      <div class="case-body">
+        <div class="case-title">Многокамерное шоу — 5 камер</div>
+        <div class="case-tags">
+          <span class="tag">5 камер</span>
+          <span class="tag">Сведение звука</span>
+          <span class="tag">AI-шумоподавление</span>
+          <span class="tag">Цветокоррекция</span>
+        </div>
+        <p class="case-desc">
+          Съёмка на 5 камер, сведение, цветокоррекция и интеллектуальная чистка звука нейросетями из изначально «бракованного» материала. Звук, убивающий проект, превращён в актив.
+        </p>
+      </div>
+      <div class="case-links">
+        <a class="case-link" href="https://www.youtube.com/watch?v=OX1ACg_Q7mY&t=2s" target="_blank" rel="noopener">▶ Смотреть</a>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="case">
+      <div class="case-num">03</div>
+      <div class="case-body">
+        <div class="case-title">Короткометражный фильм — 20 минут</div>
+        <div class="case-tags">
+          <span class="tag">Режиссура</span>
+          <span class="tag">Съёмка</span>
+          <span class="tag">Монтаж</span>
+          <span class="tag">Сведение звука</span>
+        </div>
+        <p class="case-desc">
+          Авторский проект полного цикла: сценарий, режиссура, съёмка (включая собственное участие в кадре), монтаж, сведение звука, дубли. Создание кинематографической атмосферы от начала до конца.
+        </p>
+      </div>
+      <div class="case-links">
+        <a class="case-link" href="https://www.youtube.com/watch?v=ZIQ7k2YmyqI" target="_blank" rel="noopener">▶ Смотреть</a>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="case">
+      <div class="case-num">04</div>
+      <div class="case-body">
+        <div class="case-title">Музыкальный мини-фильм с VFX & DeepFake</div>
+        <div class="case-tags">
+          <span class="tag">DeepFake / AI</span>
+          <span class="tag">VFX</span>
+          <span class="tag">ComfyUI</span>
+          <span class="tag">Съёмка + монтаж</span>
+        </div>
+        <p class="case-desc">
+          Съёмка, монтаж и интеграция AI face replacement. Сложный визуальный стиль, работа с узлами в ComfyUI / Stable Diffusion, авторство подтверждается бэкстейджем.
+        </p>
+      </div>
+      <div class="case-links">
+        <a class="case-link" href="https://www.youtube.com/watch?v=yNoGwDXtRHo" target="_blank" rel="noopener">▶ Смотреть</a>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="case">
+      <div class="case-num">05</div>
+      <div class="case-body">
+        <div class="case-title">YouTube-подкасты — Production под ключ</div>
+        <div class="case-tags">
+          <span class="tag">Свет</span>
+          <span class="tag">Звук</span>
+          <span class="tag">Тизеры</span>
+          <span class="tag">Превью / CTR</span>
+        </div>
+        <p class="case-desc">
+          Комплексный продакшн канала: постановка света и звука, монтаж серий, создание тизеров и кликбейтных превью под высокий CTR. Производство контента как система, не разовая услуга.
+        </p>
+      </div>
+      <div class="case-links">
+        <a class="case-link" href="https://www.youtube.com/watch?v=9Y34Q3_qkjs&list=PLI2oBZy9X3qFBCCgqMeHsBHu304Xh5IcR" target="_blank" rel="noopener">▶ Серия</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ STACK ═══════════════════════════════════════════════════════ -->
+<section id="stack">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Профессиональный <em>стек</em></h2>
+  </div>
+
+  <div class="stack-grid">
+    <div class="stack-item">
+      <div class="stack-cat">Монтаж</div>
+      <div class="stack-name">Adobe Premiere Pro</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-cat">Композитинг</div>
+      <div class="stack-name">After Effects</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-cat">Цветокоррекция</div>
+      <div class="stack-name">DaVinci Resolve</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-cat">Звук</div>
+      <div class="stack-name">Adobe Audition</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-cat">AI / нейросети</div>
+      <div class="stack-name">ComfyUI / Stable Diffusion</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-cat">AI чистка звука</div>
+      <div class="stack-name">Neural noise reduction</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-cat">AI замена лица</div>
+      <div class="stack-name">DeepFake / Digital Double</div>
+    </div>
+    <div class="stack-item">
+      <div class="stack-cat">Съёмка</div>
+      <div class="stack-name">Многокамерные системы</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ════════════════════════════════════════════════════════ -->
+<section id="contact" style="padding: 0;">
+  <div class="cta-section">
+    <div class="cta-title">
+      Готов обсудить<br />
+      <em>ваш проект</em>
+    </div>
+    <div class="cta-buttons">
+      <a class="btn-primary" href="https://t.me/barsukowww" target="_blank" rel="noopener">Написать в Telegram</a>
+      <a class="btn-secondary" href="tel:+79094475207">+7 909 447 52 07</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══════════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-name">Елисей Барсуков — Full-cycle Production</div>
+  <div class="footer-copy">2024</div>
+</footer>
+
+</body>
+</html>
